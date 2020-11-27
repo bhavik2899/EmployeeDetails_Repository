@@ -1,0 +1,53 @@
+﻿@model EmployeeDetails.Models.EmployeeModel
+@{
+	ViewBag.Title = "EditEmployee";
+}
+
+<h2 class="page-title mb-3">Add / Edit Employee</h2>
+
+@using (Html.BeginForm("EditEmployee", "Employee", FormMethod.Post))
+{
+<div class="row">
+
+    @Html.HiddenFor(x => x.Id)
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Salary)
+            @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" ,@Type="Number"})
+            @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.DepId)
+            @Html.DropDownListFor(m => m.DepId, new SelectList(Model.DepList, "Value", "Text"),"Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DepId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.JoiningDate)
+            @Html.TextBoxFor(m => m.JoiningDate, new { @class = "form-control",autocomplete="off" })
+            @Html.ValidationMessageFor(m => m.JoiningDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+    <div class="row d-flex justify-content-center mt-3">
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#JoiningDate").datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+    });
+</script>

@@ -1,0 +1,52 @@
+﻿@model EmployeeDetails.Models.H_SalaryByDepModel
+@{
+    ViewBag.Title = "Highest Salary in each Dapartment";
+}
+
+<h2 class="page-title mb-3">Highest Salary in each Dapartment</h2>
+
+<table class="table w-100 table-striped border box-Shadow mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Sr.</th>
+            <th class="th">
+                @Html.Label("Department")
+            </th>
+            <th class="th">
+                @Html.Label("Employee Name")
+            </th>
+            <th class="th">
+                @Html.Label("Salary")
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.empList)
+    {
+        <tr>
+            <td></td>
+            <td>
+                @item.DepName
+            </td>
+            <td>
+                @item.NAME
+            </td>
+            <td>
+                $@item.Salary.ToString("0.00")
+            </td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        addSerialNumber();
+    });
+
+    var addSerialNumber = function () {
+        $('table tr').each(function (index) {
+            $(this).find('td:nth-child(1)').html(index);
+        });
+    };
+</script>
+

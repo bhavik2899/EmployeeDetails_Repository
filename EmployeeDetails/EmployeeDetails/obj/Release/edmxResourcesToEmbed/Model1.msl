@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmployeeDetailsModelStoreContainer" CdmEntityContainer="EmployeeDetailsEntities">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.Department">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DepName" ColumnName="DepName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="DepId" ColumnName="DepId" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_EmployeeListByDate" FunctionName="EmployeeDetailsModel.Store.sp_EmployeeListByDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EmployeeDetailsModel.sp_EmployeeListByDate_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="DepName" ColumnName="DepName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_HighestSalarybyDep" FunctionName="EmployeeDetailsModel.Store.sp_HighestSalarybyDep">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EmployeeDetailsModel.sp_HighestSalarybyDep_Result">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="DepName" ColumnName="DepName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Privileges">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.Privilege">
+        <MappingFragment StoreEntitySet="Privileges">
+          <ScalarProperty Name="IsFunction" ColumnName="IsFunction" />
+          <ScalarProperty Name="IsPage" ColumnName="IsPage" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="PrivilegeName" ColumnName="PrivilegeName" />
+          <ScalarProperty Name="PK_PrivilegeID" ColumnName="PK_PrivilegeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="PK_RoleID" ColumnName="PK_RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="FK_RoleID" ColumnName="FK_RoleID" />
+          <ScalarProperty Name="FK_UserID" ColumnName="FK_UserID" />
+          <ScalarProperty Name="PK_UserRoleID" ColumnName="PK_UserRoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="LName" ColumnName="LName" />
+          <ScalarProperty Name="FNmae" ColumnName="FNmae" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="PK_UserID" ColumnName="PK_UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRolePrivileges">
+      <EntityTypeMapping TypeName="EmployeeDetailsModel.UserRolePrivilege">
+        <MappingFragment StoreEntitySet="UserRolePrivilege">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="IsUpdate" ColumnName="IsUpdate" />
+          <ScalarProperty Name="IsCreate" ColumnName="IsCreate" />
+          <ScalarProperty Name="IsView" ColumnName="IsView" />
+          <ScalarProperty Name="FK_PrivilegeID" ColumnName="FK_PrivilegeID" />
+          <ScalarProperty Name="FK_RoleID" ColumnName="FK_RoleID" />
+          <ScalarProperty Name="PK_UserRolePrivilegeID" ColumnName="PK_UserRolePrivilegeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Sp_RolePrivilegeWXml" FunctionName="EmployeeDetailsModel.Store.Sp_RolePrivilegeWXml" />
+    <FunctionImportMapping FunctionImportName="Sp_AddEditUser" FunctionName="EmployeeDetailsModel.Store.Sp_AddEditUser" />
+  </EntityContainerMapping>
+</Mapping>

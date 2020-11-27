@@ -1,0 +1,84 @@
+﻿@model IEnumerable<EmployeeDetails.Department>
+@{
+	ViewBag.Title = "Department";
+	var isCreate = Convert.ToBoolean(TempData["IsCreate"]);
+	var isUpdate = Convert.ToBoolean(TempData["IsUpdate"]);
+	var isDelete = Convert.ToBoolean(TempData["ISDelete"]);
+	var count = 0;
+}
+
+<div class="d-flex justify-content-between mb-2">
+	<h2 class="page-title">Department</h2>
+	@if (isCreate != false)
+	{
+		@Html.ActionLink("Add Department", "EditDepartment", "Employee", new { @class = "btn btn-danger mt-2 px-2 py-1 h-50" })
+	}
+
+</div>
+<div id="accordion">
+
+	@foreach (var item in Model)
+	{
+		<div class="card">
+			<div class="card-header p-2" id="heading-@count">
+				<div class="mb-0 d-flex justify-content-between align-items-center">
+					<div class="col-sm-9 p-0">
+						<button class="btn btn-link collapsed w-100 d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#collapse-@count" aria-expanded="false" aria-controls="collapse-@count">
+							<strong>@item.DepName</strong> <img src="~/Content/images/Blue_Arrow.jpg" class="ml-4 Blue_Arrow" />
+						</button>
+					</div>
+					<div class="col-sm-3 p-0 d-flex justify-content-center">
+						@if (isUpdate != false)
+						{
+							@Html.ActionLink("Edit", "EditDepartment", new { @id = item.Id }, new { @class = "btn btn-secondary px-2 py-0 mr-2" })
+						}
+						@if (isDelete != false)
+						{
+							@Html.ActionLink("Delete", "DeleteDepartment", new { id = item.Id }, new { @class = "btn btn-secondary px-2 py-0 ", onclick = "return confirm('Are you sure you wish to delete this Department & Employee Details?');" })
+						}
+					</div>
+				</div>
+			</div>
+
+			<div id="collapse-@count" class="collapse" aria-labelledby="heading-@count" data-parent="#accordion">
+				<div class="card-body">
+					<table class="w-100 table-bordered box-Shadow mt-3">
+						<thead>
+							<tr>
+								<th>Sr.</th>
+								<th class="th">
+									@Html.Label("Name")
+								</th>
+								<th class="th">
+									@Html.Label("Salary")
+								</th>
+								<th class="th">
+									@Html.Label("Joining Date")
+								</th>
+							</tr>
+						</thead>
+						@{ int sr = 1;}
+						@foreach (var employee in item.Employees)
+						{
+							<tr>
+								<td>@sr</td>
+								<td>
+									@employee.NAME
+								</td>
+								<td>
+									$@employee.Salary.ToString("0.00")
+								</td>
+								<td>
+									@employee.JoiningDate.ToShortDateString()
+								</td>
+							</tr>
+							sr++;
+						}
+					</table>
+				</div>
+			</div>
+		</div>
+		count++;
+	}
+</div>
+

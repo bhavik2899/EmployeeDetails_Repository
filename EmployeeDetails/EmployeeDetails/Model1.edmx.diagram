@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="68be2a7e04494b4988b6f9de3f0e5c1a" Name="Diagram1" ZoomLevel="98">
+        <EntityTypeShape EntityType="EmployeeDetailsModel.Department" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.Employee" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="EmployeeDetailsModel.FK__Employees__DepId__267ABA7A" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.Privilege" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.Role" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.UserRole" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.User" Width="1.5" PointX="0.75" PointY="5" />
+        <AssociationConnector Association="EmployeeDetailsModel.FK__UserRole__FK_Rol__37A5467C" />
+        <AssociationConnector Association="EmployeeDetailsModel.FK__UserRole__FK_Use__36B12243" />
+        <EntityTypeShape EntityType="EmployeeDetailsModel.UserRolePrivilege" Width="1.5" PointX="8" PointY="4.125" />
+        <AssociationConnector Association="EmployeeDetailsModel.FK__UserRoleP__FK_Pr__4222D4EF" />
+        <AssociationConnector Association="EmployeeDetailsModel.FK__UserRoleP__FK_Ro__412EB0B6" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

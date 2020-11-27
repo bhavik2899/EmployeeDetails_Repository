@@ -1,0 +1,49 @@
+﻿@model IEnumerable<EmployeeDetails.Models.RoleClass>
+@{
+	ViewBag.Title = "RoleList";
+	var isCreate = Convert.ToBoolean(TempData["IsCreate"]);
+	var isUpdate = Convert.ToBoolean(TempData["IsUpdate"]);
+	var isDelete = Convert.ToBoolean(TempData["ISDelete"]);
+}
+
+<div class="d-flex justify-content-between mb-2">
+	<h2 class="page-title">Role Details</h2>
+	@if (isCreate != false)
+	{
+		@Html.ActionLink("Add Roles", "AddEditRole", "Employee", new { @class = "btn btn-danger mt-2 px-2 py-1 h-50" })
+	}
+</div>
+
+<table class="w-100 table-bordered mt-3">
+	<thead>
+		<tr>
+			<th class="th">
+				Sr.
+			</th>
+			<th class="th">
+				@Html.Label("Role Name")
+			</th>
+		</tr>
+	</thead>
+	@{ int count = 1;}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@count</td>
+			<td>
+				@item.RoleName
+			</td>
+			<td>
+				@if (isUpdate != false)
+				{
+					@Html.ActionLink("Edit", "AddEditRole", new { @id = @item.RoleId }, new { @class = "btn btn-secondary px-2 py-0 mr-2" })
+				}
+				@if (isDelete != false)
+				{
+					@Html.ActionLink("Delete", "DeleteRole", new { id = @item.RoleId }, new { @class = "btn btn-secondary px-2 py-0 ", onclick = "return confirm('Are you sure you wish to delete this Role Details?');" })
+				}
+			</td>
+		</tr>
+		count++;
+	}
+</table>

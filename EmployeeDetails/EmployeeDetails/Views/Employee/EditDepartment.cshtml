@@ -1,0 +1,23 @@
+﻿@model EmployeeDetails.Models.DepartmentModel
+@{
+    ViewBag.Title = "EditDepartment";
+}
+
+<h2>Add / Edit Department</h2>
+
+@using (Html.BeginForm("EditDepartment", "Employee", FormMethod.Post))
+{
+    <div class="row">
+        @Html.HiddenFor(x => x.Id)
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(m => m.DepName)
+                @Html.TextBoxFor(m => m.DepName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DepName, "", new { @class = "text-danger" })
+            </div>
+        </div>       
+    </div>
+    <div class="row d-flex justify-content-center mt-3">
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </div>
+}

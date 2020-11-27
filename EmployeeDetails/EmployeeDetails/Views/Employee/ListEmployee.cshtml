@@ -1,0 +1,108 @@
+﻿
+@model EmployeeDetails.Models.EmployeesByDate
+
+@{
+	ViewBag.Title = "ListEmployee";
+	var isCreate = Convert.ToBoolean(TempData["IsCreate"]);
+	var isUpdate = Convert.ToBoolean(TempData["IsUpdate"]);
+	var isDelete = Convert.ToBoolean(TempData["ISDelete"]);
+}
+
+<div class="d-flex justify-content-between mb-2">
+	<h2 class="page-title">Employee Details</h2>
+	@if (isCreate != false)
+	{
+		@Html.ActionLink("Add Employee", "EditEmployee", "Employee", new { @class = "btn btn-danger mt-2 px-2 py-1 h-50" })
+	}
+</div>
+
+@using (Html.BeginForm("ListEmployee", "Employee", FormMethod.Post, new { @class = "p-2 mb-4 form-div" }))
+{
+	<div class="row">
+		<div class="col-md-5">
+			<div class="form-group">
+				@Html.LabelFor(m => m.FromDate)
+				@Html.TextBoxFor(m => m.FromDate, new { @class = "mr-2 form-control", autocomplete = "off" })
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="form-group">
+				@Html.LabelFor(m => m.ToDate)
+				@Html.TextBoxFor(m => m.ToDate, new { @class = "mr-2 form-control", autocomplete = "off" })
+			</div>
+		</div>
+		<div class="col-md-2 mt-4 p-1 d-flex justify-content-center h-25">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</div>
+}
+
+<table class="w-100 table-bordered box-Shadow p-1 mt-3">
+	<thead>
+		<tr>
+			<th class="th">
+				Sr.
+			</th>
+			<th class="th">
+				@Html.Label("Name")
+			</th>
+			<th class="th">
+				@Html.Label("Department")
+			</th>
+			<th class="th">
+				@Html.Label("Salary")
+			</th>
+			<th class="th">
+				@Html.Label("Joining Date")
+			</th>
+		</tr>
+	</thead>
+	@foreach (var emp in Model.empList)
+	{
+		<text>
+			<tr>
+				<td></td>
+				<td>
+					@emp.NAME
+				</td>
+				<td>
+					@emp.DepName
+				</td>
+				<td>
+					$@emp.Salary.ToString("0.00")
+				</td>
+				<td>
+					@emp.JoiningDate.ToShortDateString()
+				</td>
+				<td>
+					@if (isUpdate != false)
+					{
+						@Html.ActionLink("Edit", "EditEmployee", new { @id = @emp.Id }, new { @class = "edit btn btn-secondary px-2 py-0 mr-2" })
+					}
+					@if (isDelete != false)
+					{
+						@Html.ActionLink("Delete", "DeleteEmployee", new { id = @emp.Id }, new { @class = "delete btn btn-secondary px-2 py-0 ", onclick = "return confirm('Are you sure you wish to delete this Employee Details?');" })
+					}
+				</td>
+			</tr>
+		</text>
+	}
+</table>
+
+<script type="text/javascript">
+	$(function () {
+		$("#FromDate").datepicker({
+			dateFormat: 'dd-mm-yy'
+		});
+		$("#ToDate").datepicker({
+			dateFormat: 'dd-mm-yy'
+		});
+		addSerialNumber();
+	});
+
+	var addSerialNumber = function () {
+		$('table tr').each(function (index) {
+			$(this).find('td:nth-child(1)').html(index);
+		});
+	};
+</script>

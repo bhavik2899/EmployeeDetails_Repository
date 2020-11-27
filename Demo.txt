@@ -1,0 +1,36 @@
+
+
+
+EMP
+
+
+ID
+Name
+Salary
+DepID
+JoiningDate
+
+
+DEPT
+ID
+Name
+
+
+---------------------
+Strart Date And End Date  in Joining Date
+
+11:25 22-08-202016:03 22-08-2020
+List By DEPT
+
+
+DEPT H Salary 
+
+
+
+Net			40000	50000	80000	30000     	80000
+
+PHP			40000	50000	70000	30000		70000		
+
+IOS			40000	20000	10000	30000		40000
+
+Andaroid		40000	90000	80000	30000		90000

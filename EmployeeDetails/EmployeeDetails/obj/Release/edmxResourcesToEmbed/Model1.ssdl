@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeDetailsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Salary" Type="money" Nullable="false" />
+    <Property Name="DepId" Type="bigint" Nullable="false" />
+    <Property Name="JoiningDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Privileges">
+    <Key>
+      <PropertyRef Name="PK_PrivilegeID" />
+    </Key>
+    <Property Name="PK_PrivilegeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PrivilegeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsPage" Type="bit" />
+    <Property Name="IsFunction" Type="bit" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="PK_RoleID" />
+    </Key>
+    <Property Name="PK_RoleID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="PK_UserRoleID" />
+    </Key>
+    <Property Name="PK_UserRoleID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_UserID" Type="bigint" Nullable="false" />
+    <Property Name="FK_RoleID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRolePrivilege">
+    <Key>
+      <PropertyRef Name="PK_UserRolePrivilegeID" />
+    </Key>
+    <Property Name="PK_UserRolePrivilegeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FK_RoleID" Type="bigint" Nullable="false" />
+    <Property Name="FK_PrivilegeID" Type="bigint" Nullable="false" />
+    <Property Name="IsView" Type="bit" Nullable="false" />
+    <Property Name="IsCreate" Type="bit" Nullable="false" />
+    <Property Name="IsUpdate" Type="bit" Nullable="false" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="PK_UserID" />
+    </Key>
+    <Property Name="PK_UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FNmae" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="LName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK__Employees__DepId__267ABA7A">
+    <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="DepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRole__FK_Rol__37A5467C">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="PK_RoleID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FK_RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRole__FK_Use__36B12243">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="PK_UserID" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="FK_UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRoleP__FK_Pr__4222D4EF">
+    <End Role="Privileges" Type="Self.Privileges" Multiplicity="1" />
+    <End Role="UserRolePrivilege" Type="Self.UserRolePrivilege" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Privileges">
+        <PropertyRef Name="PK_PrivilegeID" />
+      </Principal>
+      <Dependent Role="UserRolePrivilege">
+        <PropertyRef Name="FK_PrivilegeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRoleP__FK_Ro__412EB0B6">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="UserRolePrivilege" Type="Self.UserRolePrivilege" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="PK_RoleID" />
+      </Principal>
+      <Dependent Role="UserRolePrivilege">
+        <PropertyRef Name="FK_RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Sp_AddEditUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="user_Id" Type="bigint" Mode="In" />
+    <Parameter Name="userName" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+    <Parameter Name="fName" Type="nvarchar" Mode="In" />
+    <Parameter Name="lName" Type="nvarchar" Mode="In" />
+    <Parameter Name="moileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="roleId" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="sp_EmployeeListByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fromdate" Type="date" Mode="In" />
+    <Parameter Name="todate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="sp_HighestSalarybyDep" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Sp_RolePrivilegeWXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="XmlDoc" Type="xml" Mode="In" />
+  </Function>
+  <EntityContainer Name="EmployeeDetailsModelStoreContainer">
+    <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Privileges" EntityType="Self.Privileges" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRolePrivilege" EntityType="Self.UserRolePrivilege" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Employees__DepId__267ABA7A" Association="Self.FK__Employees__DepId__267ABA7A">
+      <End Role="Departments" EntitySet="Departments" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRole__FK_Rol__37A5467C" Association="Self.FK__UserRole__FK_Rol__37A5467C">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRole__FK_Use__36B12243" Association="Self.FK__UserRole__FK_Use__36B12243">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRoleP__FK_Pr__4222D4EF" Association="Self.FK__UserRoleP__FK_Pr__4222D4EF">
+      <End Role="Privileges" EntitySet="Privileges" />
+      <End Role="UserRolePrivilege" EntitySet="UserRolePrivilege" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRoleP__FK_Ro__412EB0B6" Association="Self.FK__UserRoleP__FK_Ro__412EB0B6">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRolePrivilege" EntitySet="UserRolePrivilege" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

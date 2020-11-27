@@ -1,0 +1,107 @@
+﻿@model EmployeeDetails.Models.AddEditRoleModel
+@{
+	ViewBag.Title = "Role";
+}
+
+@using (Html.BeginForm("AddEditRole", "Employee", FormMethod.Post, new { @id = "formSubmit" }))
+{
+	@Html.HiddenFor(m => m.Role.RoleId)
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.Role.RoleName, new { @class = "page-title" })
+				@Html.TextBoxFor(m => m.Role.RoleName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.Role.RoleName, "", new { @id = "validateRole", @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+
+	<table id="table1" class="w-100 table-bordered box-Shadow mt-3">
+		<thead>
+			<tr>
+				<th class="th">
+					@Html.Label("Sr.")
+				</th>
+				<th class="th">
+					@Html.Label("PrivilegeName")
+				</th>
+				<th class="th">
+					@Html.Label("Is View")
+				</th>
+				<th class="th">
+					@Html.Label("Is Add/Create")
+				</th>
+				<th class="th">
+					@Html.Label("IS Update")
+				</th>
+				<th class="th">
+					@Html.Label("IS Delete")
+				</th>
+			</tr>
+		</thead>
+		@for (int i = 0; i < Model.PrivilegeList.Count; i++)
+		{
+			<tr>
+				@Html.HiddenFor(m => m.PrivilegeList[i].PrivilegeId)
+				<td>@(i + 1)</td>
+				<td>
+					@Model.PrivilegeList[i].PrivilegeName
+					@Html.HiddenFor(m => m.PrivilegeList[i].PrivilegeName)
+				</td>
+				<td>
+					@Html.CheckBoxFor(m => m.PrivilegeList[i].IsView)
+				</td>
+				<td>
+					@Html.CheckBoxFor(m => m.PrivilegeList[i].IsCreate)
+				</td>
+				<td>
+					@Html.CheckBoxFor(m => m.PrivilegeList[i].IsUpdate)
+				</td>
+				<td>
+					@Html.CheckBoxFor(m => m.PrivilegeList[i].IsDelete)
+				</td>
+
+			</tr>
+		}
+	</table>
+
+	<div class="row mt-3">
+		<button type="button" id="submitBtn" class="btn btn-danger ml-3">Submit</button>
+	</div>
+}
+<script type="text/javascript">
+	$(function () {
+		var modelRoleName = $("#Role_RoleName").val();
+
+		$('#Role_RoleName').focusout(function () {
+			var roleName = $("#Role_RoleName").val();
+			if (roleName != modelRoleName) { ValidateUser(roleName); }
+		});
+
+		$("#submitBtn").click(function (e) {
+			if ($("#validateRole").html() != "") { e.preventDefault(); }
+			else { $("#formSubmit").submit(); }
+		});
+	});
+
+	$(':checkbox').on('change', function () {
+		$(this).parent().nextAll('td').find(':checkbox').prop('checked', false);
+		$(this).parent().prevAll('td').find(':checkbox').prop('checked', true);
+	});
+
+	function ValidateUser(RoleName) {
+		$.ajax({
+			method: "POST",
+			url: "/Employee/ValidateRoleName/",
+			data: { Role: RoleName },
+			success: function (response) {
+				var message = $("#validateRole");
+				if (response) {
+					//Email available.
+					message.html("Role is Already available.");
+					$("#Role_RoleName").focus();
+				}
+			}
+		});
+	}
+</script>

@@ -1,0 +1,88 @@
+﻿@model EmployeeDetails.Models.UserModel
+@{
+	ViewBag.Title = "AddEditUser";
+}
+
+<h2 class="page-title mb-3">Add / Edit User</h2>
+
+@using (Html.BeginForm("AddEditUser", "Employee", FormMethod.Post,new { @id = "formID"}))
+{
+	<div class="row">
+		@Html.HiddenFor(x => x.UserID)
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.UserName)
+				@Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.UserName, "", new { @id = "validateUser",@class = "text-danger" })
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.Password)
+				@Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.FName)
+				@Html.TextBoxFor(m => m.FName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.FName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.LName)
+				@Html.TextBoxFor(m => m.LName, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.LName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.MobileNo)
+				@Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				@Html.LabelFor(m => m.RoleId)
+				@Html.DropDownListFor(m => m.RoleId, new SelectList(Model.RoleList, "Value", "Text"),"Please Select", new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+	</div>
+	<div class="row d-flex justify-content-center mt-3">
+		<button type="submit" id ="submitBtn" class="btn btn-danger">Submit</button>
+	</div>
+}
+<script>
+	    $(function () {
+        var modelUserName = $("#UserName").val();
+
+        $('#UserName').focusout(function () {
+            var userName = $("#UserName").val();
+            if (userName != modelUserName) { ValidateUser(userName); }
+        });
+
+        $("#submitBtn").click(function (e) {
+            if ($("#validateUser").html() != "") { e.preventDefault(); }
+            else { $("#formID").submit(); }
+        });
+    });
+	function ValidateUser(UserName) {
+		$.ajax({
+			method: "POST",
+			url: "/Employee/ValidateUserName/",
+			data: { User: UserName },
+			success: function (response) {
+				var message = $("#validateUser");
+				if (response) {
+					//Email available.
+					message.html("User is Already available.");
+					$("#UserName").focus();
+				}
+			}
+		});
+	}
+</script>

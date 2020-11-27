@@ -1,0 +1,30 @@
+﻿@model EmployeeDetails.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 class="mt-5">Login</h2>
+@Html.Raw(TempData["msg"])
+
+@using (Html.BeginForm("Login", "Employee", FormMethod.Post, new { @class = "" }))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+<script>
+    $("#mNavbar").hide();
+</script>
